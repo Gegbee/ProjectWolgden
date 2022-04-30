@@ -7,9 +7,30 @@ extents = Vector2( 8, 16 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+left_hand_path = NodePath("LeftHand")
+right_hand_path = NodePath("RightHand")
+MAX_SPEED = 70.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PoolVector2Array( -8, 16, 8, 16, 8, -16, -8, -16 )
+polygon = PoolVector2Array( -5, 7, 5, 7, 5, -7, -5, -7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.3, 0.3 )
+
+[node name="LeftHand" type="Polygon2D" parent="."]
+position = Vector2( -7, 0 )
+color = Color( 0.72549, 0.72549, 0.72549, 1 )
+polygon = PoolVector2Array( -2, -2, -2, 2, 1, 2, 1, -2 )
+
+[node name="RightHand" type="Polygon2D" parent="."]
+position = Vector2( 7, 0 )
+color = Color( 0.72549, 0.72549, 0.72549, 1 )
+polygon = PoolVector2Array( -1, -2, -1, 2, 2, 2, 2, -2 )
+
+[node name="LeftHandContainer" type="Node2D" parent="."]
+
+[node name="RightHandContainer" type="Node2D" parent="."]

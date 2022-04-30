@@ -11,6 +11,9 @@ var right_hand = null
 var left_hand_item : Item2D = null
 var right_hand_item : Item2D = null
 
+export var HAND_SPREAD : float = PI/2
+export var HAND_DISTANCE_FROM_BODY : float = 10.0
+
 export var MAX_HEALTH : int = 10
 export var MAX_SPEED : float = 100.0
 
@@ -28,6 +31,31 @@ func _process(delta):
 	
 func move(vel : Vector2):
 	move_and_slide(vel.normalized() * MAX_SPEED)
+
+func setHandDir(dir : Vector2):
+	# dir is local so you need to make it local before passing it in to this function
+	dir = dir.normalized()
+	var angle : float = atan2(dir.y, dir.x)
+	var left_angle : float = angle + HAND_SPREAD / 2
+	var right_angle : float = angle - HAND_SPREAD / 2
+	var right_dir : Vector2 = Vector2(cos(right_angle), sin(right_angle))
+	var left_dir : Vector2 = Vector2(cos(left_angle), sin(left_angle))
+	
+	if left_dir.y < 0:
+		left_hand.z_index = -1
+	else:
+		left_hand.z_index = 1
+		
+	if right_dir.y < 0:
+		right_hand.z_index = -1
+	else:
+		right_hand.z_index = 1
+		
+	left_hand.position.x = left_dir.x * HAND_DISTANCE_FROM_BODY
+	left_hand.position.y = left_dir.y * HAND_DISTANCE_FROM_BODY / 2
+	
+	right_hand.position.x = right_dir.x * HAND_DISTANCE_FROM_BODY
+	right_hand.position.y = right_dir.y * HAND_DISTANCE_FROM_BODY / 2
 	
 func useLeftHand():
 	pass
