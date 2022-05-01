@@ -30,5 +30,5 @@ func _physics_process(delta):
 	if Input.is_action_just_released("right_click"):
 		if state != USING_LEFT_HAND:
 			state = USING_NO_HAND
-	#print(state)
+	print(state)
 			

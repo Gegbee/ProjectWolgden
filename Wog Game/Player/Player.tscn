@@ -7,12 +7,8 @@ extents = Vector2( 8, 16 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
-left_hand_path = NodePath("LeftHand")
-right_hand_path = NodePath("RightHand")
-HAND_SPREAD = null
-HAND_DISTANCE_FROM_BODY = null
-HAND_DAMAGE = null
-MAX_HEALTH = null
+left_hand_path = NodePath("LeftHandContainer")
+right_hand_path = NodePath("RightHandContainer")
 MAX_SPEED = 70.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
@@ -23,18 +19,14 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.3, 0.3 )
+zoom = Vector2( 0.2, 0.2 )
 
-[node name="LeftHand" type="Polygon2D" parent="."]
+[node name="LeftHandContainer" type="Polygon2D" parent="."]
 position = Vector2( -7, 0 )
-color = Color( 0.72549, 0.72549, 0.72549, 1 )
-polygon = PoolVector2Array( -2, -2, -2, 2, 1, 2, 1, -2 )
+color = Color( 0.219608, 0.388235, 0.956863, 1 )
+polygon = PoolVector2Array( -1, -1, -1, 1, 1, 1, 1, -1 )
 
-[node name="RightHand" type="Polygon2D" parent="."]
+[node name="RightHandContainer" type="Polygon2D" parent="."]
 position = Vector2( 7, 0 )
-color = Color( 0.72549, 0.72549, 0.72549, 1 )
-polygon = PoolVector2Array( -1, -2, -1, 2, 2, 2, 2, -2 )
-
-[node name="LeftHandContainer" type="Node2D" parent="."]
-
-[node name="RightHandContainer" type="Node2D" parent="."]
+color = Color( 0.219608, 0.388235, 0.956863, 1 )
+polygon = PoolVector2Array( -1, -1, -1, 1, 1, 1, 1, -1 )
