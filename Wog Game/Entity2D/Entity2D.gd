@@ -58,8 +58,12 @@ func setHandDir(dir : Vector2):
 	right_hand.position.y = right_dir.y * HAND_DISTANCE_FROM_BODY / 2
 	
 func useLeftHand():
-	pass
-	
+	if left_hand_item:
+		left_hand_item.use()
+	else:
+		pass
 func useRightHand():
-	pass
-	
+	if right_hand_item:
+		right_hand_item.use()
+	else:
+		pass

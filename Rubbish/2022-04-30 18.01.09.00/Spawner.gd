@@ -1,6 +1,5 @@
 extends Node2D
 
-#enemy list stored in res://Enemies/Types.gd     <= autoloaded
 var type = 1
 
 var enemy_type = Types.enemy_dict[type]

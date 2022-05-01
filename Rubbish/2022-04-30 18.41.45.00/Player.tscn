@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5, 7 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 2, 0 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2, 2 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+left_hand_path = NodePath("Left/LeftHand")
+right_hand_path = NodePath("Right/RightHand")
+MAX_SPEED = 70.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( -5, 7, 5, 7, 5, -7, -5, -7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.3, 0.3 )
+
+[node name="Left" type="Area2D" parent="."]
+position = Vector2( 8, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LeftHand" type="Polygon2D" parent="Left"]
+color = Color( 0.72549, 0.72549, 0.72549, 1 )
+polygon = PoolVector2Array( -2, -2, -2, 2, 2, 2, 2, -2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+shape = SubResource( 3 )
+
+[node name="Right" type="Area2D" parent="."]
+position = Vector2( -8, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="RightHand" type="Polygon2D" parent="Right"]
+color = Color( 0.72549, 0.72549, 0.72549, 1 )
+polygon = PoolVector2Array( -2, -2, -2, 2, 2, 2, 2, -2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+shape = SubResource( 2 )

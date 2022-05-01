@@ -1,5 +1,7 @@
 extends "res://Entity2D/Entity2D.gd"
 
+
+
 func _ready():
 	pass # Replace with function body.
 
