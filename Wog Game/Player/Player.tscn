@@ -9,6 +9,10 @@ extents = Vector2( 8, 16 )
 script = ExtResource( 1 )
 left_hand_path = NodePath("LeftHand")
 right_hand_path = NodePath("RightHand")
+HAND_SPREAD = null
+HAND_DISTANCE_FROM_BODY = null
+HAND_DAMAGE = null
+MAX_HEALTH = null
 MAX_SPEED = 70.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]

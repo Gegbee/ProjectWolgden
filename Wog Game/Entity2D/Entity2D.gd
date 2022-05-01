@@ -5,8 +5,8 @@ class_name Entity2D
 export var left_hand_path : NodePath
 export var right_hand_path : NodePath
 
-var left_hand = null
-var right_hand = null
+var left_hand : Area2D = null
+var right_hand : Area2D = null
 
 var left_hand_item : Item2D = null
 var right_hand_item : Item2D = null
@@ -14,20 +14,24 @@ var right_hand_item : Item2D = null
 export var HAND_SPREAD : float = PI/2
 export var HAND_DISTANCE_FROM_BODY : float = 10.0
 
-export var MAX_HEALTH : int = 10
+export var HAND_DAMAGE : float = 1.0
+
+export var MAX_HEALTH : int = 10.0
 export var MAX_SPEED : float = 100.0
 
 var health : int = MAX_HEALTH
 
 func _ready():
+	add_to_group('entity')
 	left_hand = get_node(left_hand_path)
 	right_hand = get_node(right_hand_path)
+	addLeftHandItem("sword")
 
 func _process(delta):
 	if left_hand_item:
-		left_hand_item.global_position = left_hand
+		left_hand_item.global_position = left_hand.global_position
 	if right_hand_item:
-		right_hand_item.global_position = right_hand
+		right_hand_item.global_position = right_hand.global_position
 	
 func move(vel : Vector2):
 	move_and_slide(vel.normalized() * MAX_SPEED)
@@ -56,14 +60,29 @@ func setHandDir(dir : Vector2):
 	
 	right_hand.position.x = right_dir.x * HAND_DISTANCE_FROM_BODY
 	right_hand.position.y = right_dir.y * HAND_DISTANCE_FROM_BODY / 2
+
+func addLeftHandItem(new_item_name : String):
+	if left_hand_item:
+		left_hand_item.queue_free()
+	var new_item = GlobalItems.item_and_scenes[new_item_name].instance()
+	left_hand.add_child(new_item)
+	left_hand_item = new_item
 	
 func useLeftHand():
 	if left_hand_item:
 		left_hand_item.use()
 	else:
-		pass
+		for body in left_hand.get_overlapping_bodies():
+			if body.is_in_group('entity') and !body.is_in_group('player'):
+				body.damage(HAND_DAMAGE)
+		
 func useRightHand():
 	if right_hand_item:
 		right_hand_item.use()
 	else:
-		pass
+		for body in right_hand.get_overlapping_bodies():
+			if body.is_in_group('entity') and !body.is_in_group('player'):
+				body.damage(HAND_DAMAGE)
+
+func damage(dmg : int):
+	health -= dmg

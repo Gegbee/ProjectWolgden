@@ -9,3 +9,7 @@ color = Color( 1, 0, 0, 1 )
 polygon = PoolVector2Array( -1, -1, -1, 1, 1, 1, 1, -1 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+HAND_SPREAD = null
+HAND_DISTANCE_FROM_BODY = null
+HAND_DAMAGE = null
+MAX_HEALTH = null
