@@ -25,8 +25,6 @@ func _ready():
 	add_to_group('entity')
 	left_hand = get_node(left_hand_path)
 	right_hand = get_node(right_hand_path)
-	addLeftHandItem("sword")
-	addRightHandItem("hand")
 	
 func _process(delta):
 	if left_hand_item:
@@ -58,11 +56,11 @@ func setHandDir(dir : Vector2):
 		
 	left_hand.position.x = left_dir.x * HAND_DISTANCE_FROM_BODY
 	left_hand.position.y = left_dir.y * HAND_DISTANCE_FROM_BODY / 2
-	left_hand_item.scale.x = ((1 - MIN_ITEM_SIZE) * abs(sin(angle)) + MIN_ITEM_SIZE) * sign(sin(angle))
+	#left_hand_item.scale.x = ((1 - MIN_ITEM_SIZE) * abs(sin(left_angle)) + MIN_ITEM_SIZE) # * sign(sin(left_angle))
 	
 	right_hand.position.x = right_dir.x * HAND_DISTANCE_FROM_BODY
 	right_hand.position.y = right_dir.y * HAND_DISTANCE_FROM_BODY / 2
-	right_hand_item.scale.x = ((1 - MIN_ITEM_SIZE) * abs(sin(angle)) + MIN_ITEM_SIZE)
+	#right_hand_item.scale.x = ((1 - MIN_ITEM_SIZE) * abs(sin(right_angle)) + MIN_ITEM_SIZE) # * sign(sin(right_angle))
 	
 func addLeftHandItem(new_item_name : String):
 	if left_hand_item:

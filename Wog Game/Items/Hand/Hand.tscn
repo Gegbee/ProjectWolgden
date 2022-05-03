@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Items/Hand/Hand.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "Hitting"
 length = 0.3
 step = 0.02
@@ -31,11 +31,11 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.4, 0.6 ), Vector2( 0.6, 1.4 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Idle"
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2, 2 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 4, 4 )
 
 [node name="HandContainer" type="Node2D"]
 script = ExtResource( 1 )
@@ -47,15 +47,13 @@ __meta__ = {
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Hitting = SubResource( 2 )
-anims/Idle = SubResource( 3 )
+anims/Hitting = SubResource( 1 )
+anims/Idle = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2( -1.58354, 0 )
-scale = Vector2( 0.823828, 1.17617 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Area2D"]
 color = Color( 0.278431, 0.843137, 0.364706, 1 )

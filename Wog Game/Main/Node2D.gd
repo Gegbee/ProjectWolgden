@@ -14,7 +14,7 @@ func _ready():
 
 # Lock it
 	image.lock()
-#
+	print(image)
 	for row in image.get_height():
 		for column in image.get_width():
 			#print(image.get_pixel(column, row))

@@ -7,6 +7,10 @@ enum {
 }
 var state = USING_NO_HAND
 
+func _ready():
+	addLeftHandItem("hand")
+	addRightHandItem("sword")
+	
 func _physics_process(delta):
 	var x = Input.get_action_strength("right")-Input.get_action_strength("left")
 	var y = Input.get_action_strength("down")-Input.get_action_strength("up")
@@ -30,5 +34,3 @@ func _physics_process(delta):
 	if Input.is_action_just_released("right_click"):
 		if state != USING_LEFT_HAND:
 			state = USING_NO_HAND
-	#print(state)
-			

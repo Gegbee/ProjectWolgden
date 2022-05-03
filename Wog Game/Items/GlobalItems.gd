@@ -16,6 +16,6 @@ func append_items_and_scenes(path):
 		if file == "":
 			break
 		elif not file.begins_with(".") and file != "GlobalItems.gd":
-			item_and_scenes[file.to_lower()] = load(path + "/" + file.to_lower() + "/" + file.to_lower() + ".tscn")
+			item_and_scenes[file.to_lower()] = load(path + "/" + file + "/" + file + ".tscn")
 	print(item_and_scenes)
 	dir.list_dir_end()
