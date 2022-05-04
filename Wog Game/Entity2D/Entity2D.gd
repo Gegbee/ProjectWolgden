@@ -61,7 +61,11 @@ func setHandDir(dir : Vector2):
 	right_hand.position.x = right_dir.x * HAND_DISTANCE_FROM_BODY
 	right_hand.position.y = right_dir.y * HAND_DISTANCE_FROM_BODY / 2
 	#right_hand_item.scale.x = ((1 - MIN_ITEM_SIZE) * abs(sin(right_angle)) + MIN_ITEM_SIZE) # * sign(sin(right_angle))
-	
+	if right_hand_item:
+		right_hand_item.setTargetPos(dir)
+	if left_hand_item:
+		left_hand_item.setTargetPos(dir)
+		
 func addLeftHandItem(new_item_name : String, parent = null):
 	if left_hand_item:
 		left_hand_item.queue_free()
@@ -85,6 +89,15 @@ func useLeftHand():
 func useRightHand():
 	if right_hand_item:
 		right_hand_item.use()
-
+#
+#func setRightHandTargetPos(pos : Vector2):
+#	if right_hand_item:
+#		right_hand_item.setTargetPos(pos)
+#
+#func setLeftHandTargetPos(pos : Vector2):
+#	if left_hand_item:
+#		left_hand_item.setTargetPos(pos)
+		
 func damage(dmg : int):
 	health -= dmg
+	print(self.name + " health: " + str(health) + " / " + str(MAX_HEALTH))

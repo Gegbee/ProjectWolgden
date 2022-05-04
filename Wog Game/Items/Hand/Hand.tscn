@@ -1,37 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Items/Hand/Hand.gd" type="Script" id=1]
+[ext_resource path="res://Pixelart/Hand.png" type="Texture" id=2]
+[ext_resource path="res://Items/Hand/HandHitting.tres" type="Animation" id=3]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Hitting"
-length = 0.3
-step = 0.02
-tracks/0/type = "value"
-tracks/0/path = NodePath("Area2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.04, 0.08, 0.3 ),
-"transitions": PoolRealArray( 3.24901, 1, 0.615572, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -6, 0 ), Vector2( -6, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Area2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.04, 0.08, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.4, 0.6 ), Vector2( 0.6, 1.4 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
+resource_local_to_scene = true
 resource_name = "Idle"
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -47,15 +21,16 @@ __meta__ = {
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Hitting = SubResource( 1 )
-anims/Idle = SubResource( 2 )
+anims/HandHitting = ExtResource( 3 )
+anims/Idle = SubResource( 5 )
 
 [node name="Area2D" type="Area2D" parent="."]
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 3 )
 
-[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
-color = Color( 0.278431, 0.843137, 0.364706, 1 )
-polygon = PoolVector2Array( -2, -1, -1, -2, 1, -2, 2, -1, 2, 1, 1, 2, -1, 2, -2, 1 )
+[node name="Polygon2D" type="Sprite" parent="Area2D"]
+texture = ExtResource( 2 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

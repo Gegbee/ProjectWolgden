@@ -1,59 +1,5 @@
 #extends KinematicBody2D
-extends "res://Entity2D/Entity2D.gd"
-
-#enum GAME_STATE {DETECTION, MOVEMENT}
-#
-## currentstate
-#var currentGameState = GAME_STATE.DETECTION
-#var target
-#
-#func _ready():
-#	pass # Replace with function body.
-#
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _physics_process(delta):
-#	match currentGameState:
-#		GAME_STATE.DETECTION:
-#			var player = get_parent().get_node('Player')
-#			if player:
-#				$RayCast2D.cast_to = player.position
-#				if $RayCast2D.is_colliding():
-#					var n = $RayCast2D.get_collider()
-#					if n.is_in_group("player"):
-#						currentGameState = GAME_STATE.MOVEMENT
-#						target = true
-#				else:
-#					target = false
-##				if $RayCast2D.is_colliding():
-#
-##					currentGameState = GAME_STATE.MOVEMENT
-#
-#
-#
-#		GAME_STATE.MOVEMENT:
-#			var player = get_parent().get_node('Player')
-#			#print(target)
-#			if $RayCast2D.is_colliding():
-#				var n = $RayCast2D.get_collider()
-#				print(n)
-#				if n.is_in_group("player"):
-#					currentGameState = GAME_STATE.MOVEMENT
-#					target = true
-#				else:
-#					target = false
-#
-#			if target:
-#				var direction = (player.global_position - global_position).normalized()
-#				move_and_slide(direction * 500 * delta)
-#
-#
-#			else:
-#				currentGameState = GAME_STATE.DETECTION
-
-#onready var ground_ray = $ground_ray
-#onready var wall_ray = $wall_ray
-
-#
+extends Entity2D
 
 enum state {running,
 idle,
@@ -63,16 +9,15 @@ attacking
 
 # CHARLIE (ALL CAPS JUST SO YOU NOTICE THIS, IM NOT MAD), YOU CAN NOT GET PLAYER THIS WAY IT DONT WORKY
 # ALSO ORGANIZE YOU CODE GOD UFKCING DAMNIT, DONT MAKE SUBPROCESS FUNCTIONS INSIDE OF PROCESS AND PHYSICS PROCESS JUST SEPARATE THEM BY LARGE SPACES
-#greg ur a chode
-#var player = preload("res://Player/Player.tscn").instance()
+#greg ur a chode FUCK YOU CHARLIE YOU FACKIN CUNT
+
 export var player_path : NodePath
 var player : Entity2D = null
 var enemy_state = state.running
 
 func _ready():
-	health = 5
-	addLeftHandItem("hand")
-	addRightHandItem("sword")
+	addLeftHandItem("hand", self)
+	addRightHandItem("hand", self)
 	enter_state(state.running)
 	pass 
 	
@@ -95,14 +40,14 @@ func enter_state(pass_state):
 		
 	if(pass_state == state.running):
 		#play("run")
-		print('run')
+		pass
 		#$Timer.start(rand_range(0.5,1.5))
 		
 	if(pass_state == state.idle):
 		if(rand_range(0,2) > 1):
-			print('anim1')
+			pass
 		else:
-			print('anim2')
+			pass
 
 func process_states():
 	if(enemy_state == state.attacking):
@@ -133,7 +78,7 @@ func running():
 		
 	else:
 		#move_and_slide(Vector2(-1, 0) * 50)
-		print('no player found')
+		pass
 			
 func combat():
 	var length = player.global_position - global_position
@@ -143,41 +88,4 @@ func combat():
 	useLeftHand()
 
 func dead():
-	print('dead')
-
-#func process_running():
-#	if(!ground_ray.is_colliding()):
-#		enter_state(state.falling)
-#
-#	if(wall_ray.is_colliding()):
-#		scale.x *= -1
-#
-#	global_position.x += move_speed * scale.x
-#	pass
-#
-#func process_falling():
-#	current_fall_speed = lerp(current_fall_speed,max_fall_speed,0.04)
-#	global_position.x += move_speed_fall * scale.x
-#	global_position.y += current_fall_speed
-#
-#	if(ground_ray.is_colliding()):
-#		global_position = ground_ray.get_collision_point()
-#		enter_state(state.running)
-#	pass
-#
-#func _on_Timer_timeout():
-#	if(ground_ray.is_colliding()):
-#		enter_state(state.idle)
-#	pass # Replace with function body.
-#
-#func _on_rat_animation_finished():
-#	if(animation == "idleclean" or animation == "idlestand"):
-#		enter_state(state.running)
-#	pass # Replace with function body.
-
-#ignore
-#	var player = get_parent().get_node('Player')
-#	var direction = (player.global_position - global_position).normalized()
-#	move_and_slide(direction * 1500 * delta)
-
-
+	pass

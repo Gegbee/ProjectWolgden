@@ -30,3 +30,8 @@ texture = ExtResource( 2 )
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 HAND_SPREAD = 2.0
 player_path = NodePath("../Player")
+
+[node name="Center" type="Polygon2D" parent="."]
+z_index = -2
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -8, -8, -8, 8, 8, 8, 8, -8 )
