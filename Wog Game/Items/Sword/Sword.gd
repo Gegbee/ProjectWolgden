@@ -2,8 +2,6 @@ extends Item2D
 
 var used : bool = false
 
-
-
 func use():
 	if !used:
 		rotation = PI/3 * sin(get_parent().position.normalized().x)
@@ -11,7 +9,7 @@ func use():
 		used = true
 		$Timer.start(0.5)
 		for body in $Area2D.get_overlapping_bodies():
-			if body.is_in_group('entity') and not body.is_in_group('player'):
+			if body.is_in_group('entity') and body != parent: #body.is_in_group('player'):
 				body.damage(2)
 
 func _on_Timer_timeout():

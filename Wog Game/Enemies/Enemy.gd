@@ -57,18 +57,22 @@ extends "res://Entity2D/Entity2D.gd"
 
 enum state {running,
 idle,
+dead
 attacking
 }
 
-
 # CHARLIE (ALL CAPS JUST SO YOU NOTICE THIS, IM NOT MAD), YOU CAN NOT GET PLAYER THIS WAY IT DONT WORKY
 # ALSO ORGANIZE YOU CODE GOD UFKCING DAMNIT, DONT MAKE SUBPROCESS FUNCTIONS INSIDE OF PROCESS AND PHYSICS PROCESS JUST SEPARATE THEM BY LARGE SPACES
+#greg ur a chode
 #var player = preload("res://Player/Player.tscn").instance()
 export var player_path : NodePath
 var player : Entity2D = null
 var enemy_state = state.running
 
 func _ready():
+	health = 5
+	addLeftHandItem("hand")
+	addRightHandItem("sword")
 	enter_state(state.running)
 	pass 
 	
@@ -78,6 +82,10 @@ func _physics_process(delta):
 	if player:
 		$PlayerCast.cast_to = player.global_position - global_position
 		process_states()
+		if health <= 0:
+			enter_state(state.dead)
+		if health > 0:
+			setHandDir(player.global_position - global_position)
 	pass
 	
 func enter_state(pass_state):
@@ -93,16 +101,16 @@ func enter_state(pass_state):
 	if(pass_state == state.idle):
 		if(rand_range(0,2) > 1):
 			print('anim1')
-			#play("idleclean")
 		else:
 			print('anim2')
-			#play("idlestand")
 
 func process_states():
 	if(enemy_state == state.attacking):
-		attacking()
+		combat()
 	if(enemy_state == state.running):
 		running()
+	if(enemy_state == state.dead):
+		dead()
 	pass
 
 func leave_state(pass_state):
@@ -110,26 +118,32 @@ func leave_state(pass_state):
 	
 
 func running():
-	if $PlayerCast.is_colliding():
-		var space_state = get_world_2d().direct_space_state
-		var result = space_state.intersect_ray(global_position, player.global_position, [self])
-		if result:
-			var length = player.global_position - global_position
-			length.normalized()
-			move_and_slide(length * 50)
+#	if $PlayerCast.is_colliding():
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position, player.global_position, [self])
+	if result:
+		var length = player.global_position - global_position
+		length.normalized()
+		move_and_slide(length)
 
-			#indent these
-			print('player_pos = ' + length)
-			if length.length() < 50:
-				enter_state(state.attacking)
+		#indent these
+		#print('player_pos = ' + str(length))
+		if length.length() < 20:
+			enter_state(state.attacking)
+		
 	else:
-		move_and_slide(Vector2(-1, 0) * 50)
-		print('no colliders?')
+		#move_and_slide(Vector2(-1, 0) * 50)
+		print('no player found')
 			
-func attacking():
+func combat():
 	var length = player.global_position - global_position
-	if length.length() < 50:
+	#print(str(length.length()))
+	if length.length() > 20:
 		enter_state(state.running)
+	useLeftHand()
+
+func dead():
+	print('dead')
 
 #func process_running():
 #	if(!ground_ray.is_colliding()):
@@ -165,3 +179,5 @@ func attacking():
 #	var player = get_parent().get_node('Player')
 #	var direction = (player.global_position - global_position).normalized()
 #	move_and_slide(direction * 1500 * delta)
+
+

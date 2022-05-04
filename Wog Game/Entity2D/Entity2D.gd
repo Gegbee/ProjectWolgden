@@ -5,8 +5,8 @@ class_name Entity2D
 export var left_hand_path : NodePath
 export var right_hand_path : NodePath
 
-var left_hand : Polygon2D = null
-var right_hand : Polygon2D = null
+var left_hand = null
+var right_hand = null
 
 var left_hand_item : Item2D = null
 var right_hand_item : Item2D = null
@@ -62,19 +62,21 @@ func setHandDir(dir : Vector2):
 	right_hand.position.y = right_dir.y * HAND_DISTANCE_FROM_BODY / 2
 	#right_hand_item.scale.x = ((1 - MIN_ITEM_SIZE) * abs(sin(right_angle)) + MIN_ITEM_SIZE) # * sign(sin(right_angle))
 	
-func addLeftHandItem(new_item_name : String):
+func addLeftHandItem(new_item_name : String, parent = null):
 	if left_hand_item:
 		left_hand_item.queue_free()
 	var new_item = GlobalItems.item_and_scenes[new_item_name].instance()
 	left_hand.add_child(new_item)
 	left_hand_item = new_item
-
-func addRightHandItem(new_item_name : String):
+	left_hand_item.parent = parent
+	
+func addRightHandItem(new_item_name : String, parent = null):
 	if right_hand_item:
 		right_hand_item.queue_free()
 	var new_item = GlobalItems.item_and_scenes[new_item_name].instance()
 	right_hand.add_child(new_item)
 	right_hand_item = new_item
+	right_hand_item.parent = parent
 	
 func useLeftHand():
 	if left_hand_item:

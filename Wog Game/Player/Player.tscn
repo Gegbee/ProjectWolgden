@@ -1,35 +1,38 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Pixelart/Hand.png" type="Texture" id=2]
+[ext_resource path="res://Pixelart/GobboConcept.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5, 4 )
+extents = Vector2( 5, 3 )
 
 [node name="Player" type="KinematicBody2D" groups=[
+"entity",
 "player",
 ]]
 script = ExtResource( 1 )
 left_hand_path = NodePath("LeftHandContainer")
 right_hand_path = NodePath("RightHandContainer")
+MAX_HEALTH = 1
 MAX_SPEED = 70.0
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PoolVector2Array( -5, 7, 5, 7, 5, -7, -5, -7 )
+[node name="GobboConcept" type="Sprite" parent="."]
+position = Vector2( 8, -2 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 3 )
+position = Vector2( 0, 4 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.4, 0.4 )
+zoom = Vector2( 0.1, 0.1 )
 
-[node name="LeftHandContainer" type="Polygon2D" parent="."]
-position = Vector2( -7, 0 )
-color = Color( 0.219608, 0.388235, 0.956863, 1 )
-polygon = PoolVector2Array( -1, -1, -1, 1, 1, 1, 1, -1 )
+[node name="LeftHandContainer" type="Sprite" parent="."]
+position = Vector2( -5, 0 )
+texture = ExtResource( 2 )
 
-[node name="RightHandContainer" type="Polygon2D" parent="."]
-position = Vector2( 7, 0 )
-color = Color( 0.219608, 0.388235, 0.956863, 1 )
-polygon = PoolVector2Array( -1, -1, -1, 1, 1, 1, 1, -1 )
+[node name="RightHandContainer" type="Sprite" parent="."]
+position = Vector2( 5, 0 )
+texture = ExtResource( 2 )

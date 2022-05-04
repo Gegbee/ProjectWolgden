@@ -12,6 +12,10 @@ func _ready():
 	addRightHandItem("sword")
 	
 func _physics_process(delta):
+	
+	if health <= 0:
+		print('deadplayer')
+	
 	var x = Input.get_action_strength("right")-Input.get_action_strength("left")
 	var y = Input.get_action_strength("down")-Input.get_action_strength("up")
 	move(Vector2(x, y))

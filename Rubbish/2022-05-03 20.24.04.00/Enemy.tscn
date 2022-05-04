@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Pixelart/Mobs/gobbo.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14.8546, 18.1444 )
+
+[node name="Enemy" type="KinematicBody2D"]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 1 )
+left_hand_path = NodePath("LeftHand")
+right_hand_path = NodePath("RightHand")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.15124, 6.64351 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+
+[node name="PlayerCast" type="RayCast2D" parent="."]
+enabled = true
+
+[node name="CastTime" type="Timer" parent="."]
+
+[node name="LeftHand" type="Position2D" parent="."]
+position = Vector2( -16.5265, 7.85688 )
+
+[node name="RightHand" type="Position2D" parent="."]
+position = Vector2( 12.8013, 7.85688 )
+[connection signal="timeout" from="CastTime" to="." method="_on_CastTime_timeout"]

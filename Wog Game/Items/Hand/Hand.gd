@@ -14,7 +14,7 @@ func use():
 		$Timer.start(0.5)
 		$AnimationPlayer.play("Hitting")
 		for body in $Area2D.get_overlapping_bodies():
-			if body.is_in_group('entity') and not body.is_in_group('player'):
+			if body.is_in_group('entity') and body != parent: 
 				body.damage(1)
 
 
