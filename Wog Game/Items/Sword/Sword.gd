@@ -9,8 +9,9 @@ func use():
 		used = true
 		$Timer.start(0.5)
 		for body in $Area2D.get_overlapping_bodies():
-			if body.is_in_group('entity') and body != parent: #body.is_in_group('player'):
+			if body.is_in_group('entity') and body != parent:
 				body.damage(2)
+
 
 func _on_Timer_timeout():
 	rotation = 0

@@ -1,0 +1,53 @@
+extends Entity2D
+
+enum {
+	LOOK,
+	CHASE,
+	FIGHT,
+	DEAD
+}
+
+var state = LOOK
+var dir
+
+
+func _process(delta):
+	match state:
+		LOOK:
+			look(delta)
+			
+		CHASE:
+			pass
+			
+		FIGHT:
+			pass
+		
+		DEAD:
+
+func look(delta):
+	dir = find_target()
+	
+	if dir:
+		var motion = dir * speed/4
+		move_and_slide(motion)
+	
+func find_target():
+	var look = get_node("RayCast2D")
+	look.cast_to = (get_parent().get_node('Player').position - position)
+	look.force_raycast_update()
+
+  # if we can see the target, chase it
+	if !look.is_colliding():
+		dir = look.cast_to.normalized()
+		return dir
+
+  # or chase first scent we can see	
+	else:
+		for scent in get_parent().get_node('Player').scent_trail:
+			look.cast_to = (scent.position - position)
+			look.force_raycast_update()
+			if !look.is_colliding():
+				dir = look.cast_to.normalized()
+				return dir
+				break
+

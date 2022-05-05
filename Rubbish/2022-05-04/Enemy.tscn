@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Pixelart/GobboConcept.png" type="Texture" id=2]
+[ext_resource path="res://Pixelart/condensed.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4.84876, 3 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"mob",
+"entity",
+]]
+script = ExtResource( 1 )
+left_hand_path = NodePath("LeftHand")
+right_hand_path = NodePath("RightHand")
+HAND_DISTANCE_FROM_BODY = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 8, -2 )
+texture = ExtResource( 2 )
+
+[node name="PlayerCast" type="RayCast2D" parent="."]
+enabled = true
+
+[node name="CastTime" type="Timer" parent="."]
+
+[node name="LeftHand" type="Position2D" parent="."]
+modulate = Color( 0.290196, 0.670588, 0.32549, 1 )
+position = Vector2( -4, 0 )
+
+[node name="RightHand" type="Position2D" parent="."]
+modulate = Color( 0.290196, 0.670588, 0.32549, 1 )
+position = Vector2( 6, 0 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -4.99
+margin_top = -14.92
+margin_right = 35.01
+margin_bottom = -0.92
+rect_scale = Vector2( 0.980856, 0.673089 )
+custom_fonts/font = SubResource( 2 )
+[connection signal="timeout" from="CastTime" to="." method="_on_CastTime_timeout"]

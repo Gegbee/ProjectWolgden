@@ -17,8 +17,9 @@ export var HAND_SPREAD : float = PI/3
 export var HAND_DISTANCE_FROM_BODY : float = 10.0
 
 export var MAX_HEALTH : int = 10.0
-export var MAX_SPEED : float = 100.0
+export var MAX_SPEED : float = 100.0 
 
+var speed : int = MAX_SPEED
 var health : int = MAX_HEALTH
 
 func _ready():
