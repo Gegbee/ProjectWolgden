@@ -1,5 +1,7 @@
 #extends KinematicBody2D
 extends Entity2D
+class_name Mob
+
 
 enum state {running,
 idle,
