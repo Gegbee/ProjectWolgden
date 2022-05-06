@@ -11,8 +11,8 @@ func _process(delta):
 	var animation = $AnimationPlayer.get_animation(anim_name) # replace with your track name
 	var track = animation.find_track("Area2D:position") # or an integer
 	#print(target_pos)
-	animation.track_set_key_value(track, 1, target_pos.normalized() * 6)
-	animation.track_set_key_value(track, 2, target_pos.normalized() * 6)
+	animation.track_set_key_value(track, 1, target_pos.normalized() * 5)
+	animation.track_set_key_value(track, 2, target_pos.normalized() * 5)
 	#print(animation.track_get_key_value(track, 1))
 			
 func use():

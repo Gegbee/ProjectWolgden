@@ -22,19 +22,26 @@ export var MAX_SPEED : float = 100.0
 var speed : int = MAX_SPEED
 var health : int = MAX_HEALTH
 
+var item_in_use : bool = false
+
 func _ready():
 	add_to_group('entity')
 	left_hand = get_node(left_hand_path)
 	right_hand = get_node(right_hand_path)
 	
 func _process(delta):
+	
 	if left_hand_item:
 		left_hand_item.global_position = left_hand.global_position
 	if right_hand_item:
 		right_hand_item.global_position = right_hand.global_position
 	
 func move(vel : Vector2):
-	move_and_slide(vel.normalized() * MAX_SPEED)
+	if item_in_use == true:
+		speed = MAX_SPEED / 2
+	else:
+		speed = MAX_SPEED
+	return move_and_slide(vel.normalized() * speed).length() > 0
 
 func setHandDir(dir : Vector2):
 	# dir is local so you need to make it local before passing it in to this function
@@ -83,21 +90,20 @@ func addRightHandItem(new_item_name : String, parent = null):
 	right_hand_item = new_item
 	right_hand_item.parent = parent
 	
-func useLeftHand():
+func __useLeftHand__():
 	if left_hand_item:
 		left_hand_item.use()
-		
-func useRightHand():
+	
+func __useRightHand__():
 	if right_hand_item:
 		right_hand_item.use()
-#
-#func setRightHandTargetPos(pos : Vector2):
-#	if right_hand_item:
-#		right_hand_item.setTargetPos(pos)
-#
-#func setLeftHandTargetPos(pos : Vector2):
-#	if left_hand_item:
-#		left_hand_item.setTargetPos(pos)
+		
+func useHand(hand : String):
+	item_in_use = true
+	if hand.to_lower() == "left":
+		__useLeftHand__()
+	elif hand.to_lower() == "right":
+		__useRightHand__()
 		
 func damage(dmg : int):
 	health -= dmg

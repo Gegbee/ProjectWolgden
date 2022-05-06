@@ -6,7 +6,7 @@ export var player_path : NodePath
 
 var enemy_type = Types.enemy_dict[type]
 var enemy = load(enemy_type)
-
+var amt : int = 0
 
 func spawn():
 #	var enemy_instance = enemy.instance()
@@ -14,8 +14,8 @@ func spawn():
 	var enemy = preload('res://Enemies/boney.tscn').instance()
 	get_parent().add_child(enemy)
 	enemy.init(player_path)
-
-	
+	amt += 1
+	print(amt)
 
 
 func _on_Timer_timeout():

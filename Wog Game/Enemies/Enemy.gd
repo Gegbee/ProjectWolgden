@@ -10,9 +10,6 @@ detecting
 attacking
 }
 
-# CHARLIE (ALL CAPS JUST SO YOU NOTICE THIS, IM NOT MAD), YOU CAN NOT GET PLAYER THIS WAY IT DONT WORKY
-# ALSO ORGANIZE YOU CODE GOD UFKCING DAMNIT, DONT MAKE SUBPROCESS FUNCTIONS INSIDE OF PROCESS AND PHYSICS PROCESS JUST SEPARATE THEM BY LARGE SPACES
-#greg ur a chode FUCK YOU CHARLIE YOU FACKIN CUNT
 export var player_path : NodePath
 var player : Entity2D = null
 var enemy_state = state.running
@@ -29,7 +26,6 @@ func _ready():
 	
 func _physics_process(delta):
 	
-	# ENEMY SHOULD DO NOTHING IF PLAYER IS NOT IN SCENE BECAUSE THERE WILL BE NO CAMERA ANYWAYS; AKA: PLAYER IS ALWAYS IN SCENE
 	player = get_node(player_path)
 	if player:
 		$PlayerCast.cast_to = player.global_position - global_position
@@ -102,7 +98,7 @@ func running():
 		if result:
 			var length = player.global_position - global_position
 			var move_dir = length.normalized()
-			move_and_slide(move_dir * 30)
+			move(move_dir)
 
 			if length.length() < 14:
 				enter_state(state.attacking)
@@ -114,10 +110,10 @@ func running():
 
 func combat():
 	var length = player.global_position - global_position
-	#print(str(length.length()))
+	useHand("left")
+	item_in_use = false
 	if length.length() > 14:
 		enter_state(state.running)
-	useLeftHand()
 
 func dead():
 	pass
