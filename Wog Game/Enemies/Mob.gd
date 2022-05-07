@@ -15,6 +15,9 @@ export var equip_right : String
 export var player_path : NodePath
 var player : Entity2D = null
 
+onready var player_vars = get_node("/root/PlayerVars")
+
+var facing_dir : Vector2
 
 func init(path):
 	player_path = path
@@ -27,8 +30,8 @@ func _ready():
 
 
 func _process(delta):
-	player = get_node(player_path)
-	if player != null:
+	#player = get_node(player_path)
+	if player_vars.position != null:
 		match state:
 			IDLE:
 				pass
@@ -60,7 +63,7 @@ func look(delta):
 	if health <= 0:
 		state = DEAD
 	
-	setHandDir(player.position - position)
+	setHandDir(player_vars.position - position)
 	dir = find_target()
 	
 	if dir:
@@ -68,11 +71,14 @@ func look(delta):
 		move_and_slide(motion)
 	
 func find_target():
-	var look = get_node("RayCast2D")
-	look.cast_to = (player.position - position)
+	
+	facing_dir = (player_vars.position - position)
+	
+	var look = get_node("PlayerCast")
+	look.cast_to = (player_vars.position - position)
 	look.force_raycast_update()
 	
-	var length = player.position - position
+	var length = player_vars.position - position
 	if length.length() < 15:
 		state = FIGHT
 	
@@ -83,7 +89,7 @@ func find_target():
 
   # or chase first scent we can see	
 	else:
-		for scent in (get_parent().get_node('Player').scent_trail):
+		for scent in player_vars.scent_trail:
 			look.cast_to = (scent.position - position)
 			look.force_raycast_update()
 			if look.is_colliding() == false:
@@ -93,16 +99,20 @@ func find_target():
 
 
 func fight(delta):
+	
+	facing_dir = (player_vars.position - position)
+	
+	
 	if health <= 0:
 		state = DEAD
 	
 	
-	setHandDir(player.position - position)
-	var look = get_node("RayCast2D")
-	look.cast_to = (player.position - position)
+	setHandDir(player_vars.position - position)
+	var look = get_node("PlayerCast")
+	look.cast_to = (player_vars.position - position)
 	look.force_raycast_update()
 	
-	var length = player.position - position
+	var length = player_vars.position - position
 	item_in_use = false
 	if length.length() > 15:
 		useHand("left")

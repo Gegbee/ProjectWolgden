@@ -6,8 +6,10 @@ enum {
 	USING_NO_HAND
 }
 var state = USING_NO_HAND
+onready var player_vars = get_node("/root/PlayerVars")
 
 const scent_scene = preload('res://Player/Scent.tscn')
+var facing_dir : Vector2
 
 var scent_trail = []
 
@@ -18,6 +20,10 @@ func _ready():
 	addRightHandItem("hand", self)
 	
 func _physics_process(delta):
+	facing_dir = get_local_mouse_position()
+	player_vars.position = global_position
+	player_vars.scent_trail = scent_trail
+	
 	
 	var x = Input.get_action_strength("right")-Input.get_action_strength("left")
 	var y = Input.get_action_strength("down")-Input.get_action_strength("up")

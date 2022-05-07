@@ -25,9 +25,6 @@ func _on_Timer_timeout():
 	used = false
 
 
-
-
-
 func _on_Area2D_body_entered(body):
 	if body.is_in_group('entity') and body != parent:
-		body.damage(1)
+		body.damage(1, -parent.facing_dir.normalized())

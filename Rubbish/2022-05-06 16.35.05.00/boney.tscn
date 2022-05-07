@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Enemies/Mob.gd" type="Script" id=1]
+[ext_resource path="res://Pixelart/Mobs/boney.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 2.44936
+height = 1.0586
+
+[node name="enemy" type="KinematicBody2D" groups=[
+"entity",
+]]
+script = ExtResource( 1 )
+left_hand_path = NodePath("LeftHand")
+right_hand_path = NodePath("RightHand")
+HAND_DISTANCE_FROM_BODY = 6.0
+MAX_SPEED = 400.0
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="LeftHand" type="Position2D" parent="."]
+position = Vector2( -5.6, 2 )
+
+[node name="RightHand" type="Position2D" parent="."]
+position = Vector2( 4.5, 2 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="PlayerCast" type="RayCast2D" parent="."]
+
+[node name="TrailCast" type="RayCast2D" parent="."]
+position = Vector2( 0, -3.64 )
+collision_mask = 12

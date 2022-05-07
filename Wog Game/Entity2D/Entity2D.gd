@@ -21,8 +21,10 @@ export var MAX_SPEED : float = 100.0
 
 var speed : int = MAX_SPEED
 var health : int = MAX_HEALTH
+var impulse_vector : Vector2 = Vector2.ZERO
 
 var item_in_use : bool = false
+
 
 func _ready():
 	add_to_group('entity')
@@ -37,12 +39,22 @@ func _process(delta):
 		right_hand_item.global_position = right_hand.global_position
 	
 func move(vel : Vector2):
+	vel = vel.normalized()
 	if item_in_use == true:
 		speed = MAX_SPEED / 2
+	if impulse_vector != Vector2.ZERO:
+		vel -= impulse_vector * 5
+		yield(get_tree().create_timer(0.1), "timeout")
+		impulse_vector = Vector2.ZERO
 	else:
 		speed = MAX_SPEED
-	return move_and_slide(vel.normalized() * speed).length() > 0
-
+	return move_and_slide(vel * speed).length() > 0
+	
+func impulse(vel : Vector2, impulse_dir : Vector2):
+	var impulse_strength = MAX_SPEED/2
+	vel += -impulse_dir * impulse_strength
+	return move_and_slide(vel.normalized() * speed - impulse_dir).length() > 0
+	
 func setHandDir(dir : Vector2):
 	# dir is local so you need to make it local before passing it in to this function
 	dir = dir.normalized()
@@ -105,6 +117,7 @@ func useHand(hand : String):
 	elif hand.to_lower() == "right":
 		__useRightHand__()
 		
-func damage(dmg : int):
+func damage(dmg : int, impulse_dir : Vector2):
 	health -= dmg
+	impulse_vector = impulse_dir
 	print(self.name + " health: " + str(health) + " / " + str(MAX_HEALTH))

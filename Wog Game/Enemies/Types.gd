@@ -2,7 +2,7 @@ extends Node
 
 var types = ['type1']
 
-var enemy_dict = {"Enemy": "res://Enemies/Enemy.tscn", 1: "res://Enemies/Enemy.tscn", 2: "res://Enemies/boney.tscn"}
+var enemy_dict = {"Enemy": "res://Enemies/Enemy.tscn", 1: "res://Enemies/Enemy.tscn", 2: "res://Enemies/boney.tscn", 3: "greg_ fahded"}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
