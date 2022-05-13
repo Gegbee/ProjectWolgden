@@ -25,14 +25,16 @@ var impulse_vector : Vector2 = Vector2.ZERO
 
 var item_in_use : bool = false
 
-
 func _ready():
 	add_to_group('entity')
 	left_hand = get_node(left_hand_path)
 	right_hand = get_node(right_hand_path)
 	
 func _process(delta):
-	
+	impulse_vector.x = lerp(impulse_vector.x, 0, 0.02)
+	impulse_vector.y = lerp(impulse_vector.y, 0, 0.02)
+	if impulse_vector.length() <= 0.2:
+		impulse_vector = Vector2()
 	if left_hand_item:
 		left_hand_item.global_position = left_hand.global_position
 	if right_hand_item:
@@ -42,18 +44,13 @@ func move(vel : Vector2):
 	vel = vel.normalized()
 	if item_in_use == true:
 		speed = MAX_SPEED / 2
-	if impulse_vector != Vector2.ZERO:
-		vel -= impulse_vector * 5
-		yield(get_tree().create_timer(0.1), "timeout")
-		impulse_vector = Vector2.ZERO
 	else:
 		speed = MAX_SPEED
+	if impulse_vector.length() > 0.2:
+		vel -= impulse_vector
+		#yield(get_tree().create_timer(0.1), "timeout")
 	return move_and_slide(vel * speed).length() > 0
-	
-func impulse(vel : Vector2, impulse_dir : Vector2):
-	var impulse_strength = MAX_SPEED/2
-	vel += -impulse_dir * impulse_strength
-	return move_and_slide(vel.normalized() * speed - impulse_dir).length() > 0
+
 	
 func setHandDir(dir : Vector2):
 	# dir is local so you need to make it local before passing it in to this function
@@ -117,7 +114,10 @@ func useHand(hand : String):
 	elif hand.to_lower() == "right":
 		__useRightHand__()
 		
-func damage(dmg : int, impulse_dir : Vector2):
+func damage(dmg : int, impulse_dir : Vector2 = Vector2(), impulse_strength : float = 0):
 	health -= dmg
-	impulse_vector = impulse_dir
+	impulse(impulse_dir, impulse_strength)
 	print(self.name + " health: " + str(health) + " / " + str(MAX_HEALTH))
+
+func impulse(dir : Vector2, strength: float):
+	impulse_vector = dir * strength

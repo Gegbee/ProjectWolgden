@@ -17,8 +17,6 @@ var player : Entity2D = null
 
 onready var player_vars = get_node("/root/PlayerVars")
 
-var facing_dir : Vector2
-
 func init(path):
 	player_path = path
 
@@ -68,11 +66,9 @@ func look(delta):
 	
 	if dir:
 		var motion = dir * speed/4
-		move_and_slide(motion)
+		move(motion)
 	
 func find_target():
-	
-	facing_dir = (player_vars.position - position)
 	
 	var look = get_node("PlayerCast")
 	look.cast_to = (player_vars.position - position)
@@ -99,8 +95,6 @@ func find_target():
 
 
 func fight(delta):
-	
-	facing_dir = (player_vars.position - position)
 	
 	
 	if health <= 0:

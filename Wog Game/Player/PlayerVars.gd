@@ -1,6 +1,7 @@
 extends Node
 
 var position : Vector2
+var state 
 var scent_trail = []
 
 # Called when the node enters the scene tree for the first time.

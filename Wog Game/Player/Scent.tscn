@@ -10,6 +10,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_right = 4.0
 margin_bottom = 4.0
 color = Color( 0.372549, 0.827451, 0.368627, 0.423529 )

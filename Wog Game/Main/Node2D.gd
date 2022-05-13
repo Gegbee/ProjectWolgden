@@ -1,7 +1,6 @@
 extends Node2D
 
 
-
 func _ready():
 #	# Get the image ONCE
 #	var texture = ImageTexture.new()

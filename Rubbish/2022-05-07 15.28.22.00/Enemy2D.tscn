@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Enemies/enemy_try3/Enemy2D.gd" type="Script" id=1]
+[ext_resource path="res://Pixelart/Character.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.48928, 3.78713 )
+
+[node name="Enemy" type="KinematicBody2D"]
+script = ExtResource( 1 )
+MIN_ITEM_SIZE = null
+HAND_SPREAD = null
+HAND_DISTANCE_FROM_BODY = null
+MAX_HEALTH = null
+MAX_SPEED = null
+mode = null
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Wall_Cast" type="RayCast2D" parent="."]
+collision_mask = 31
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Wander_Timer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 3 )
+shape = SubResource( 1 )
