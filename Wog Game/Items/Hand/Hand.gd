@@ -27,4 +27,4 @@ func _on_Timer_timeout():
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group('entity') and body != parent:
-		body.damage(1, -target_pos.normalized(), 0.25)
+		body.damage(1, -target_pos.normalized(), 0.4)

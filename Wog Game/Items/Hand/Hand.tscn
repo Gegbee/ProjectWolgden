@@ -2,14 +2,14 @@
 
 [ext_resource path="res://Items/Hand/Hand.gd" type="Script" id=1]
 [ext_resource path="res://Items/Hand/HandHitting.tres" type="Animation" id=2]
-[ext_resource path="res://Pixelart/Hand.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Hands/PlayerHand.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_local_to_scene = true
 resource_name = "Idle"
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 3.0
+radius = 4.0
 
 [node name="HandContainer" type="Node2D"]
 script = ExtResource( 1 )
@@ -30,7 +30,7 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
 
-[node name="Polygon2D" type="Sprite" parent="Area2D"]
+[node name="Sprite" type="Sprite" parent="Area2D"]
 texture = ExtResource( 3 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Area2D"]

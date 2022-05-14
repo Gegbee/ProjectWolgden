@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Characters/GobboSpritemap.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Characters/PlayerSpritemap.png" type="Texture" id=3]
+[ext_resource path="res://Entity2D/HealthBar/HealthBar.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 6.99999
+height = 6.00003
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "RunningFront",
+"speed": 8.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "RunningBack",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "IdleFront",
+"speed": 4.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "IdleBack",
+"speed": 5.0
+} ]
+
+[node name="Player" type="KinematicBody2D" groups=["entity", "player"]]
+script = ExtResource( 1 )
+left_hand_path = NodePath("LeftHandContainer")
+right_hand_path = NodePath("RightHandContainer")
+health_bar_path = NodePath("HealthBar")
+HAND_SPREAD = 1.2
+HAND_DISTANCE_FROM_BODY = 14.0
+MAX_SPEED = 35.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.3, 0.3 )
+limit_left = -192
+limit_top = -104
+limit_right = 192
+limit_bottom = 104
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 2.0
+
+[node name="LeftHandContainer" type="Position2D" parent="."]
+modulate = Color( 0.776471, 0.588235, 0.505882, 1 )
+position = Vector2( -5, 0 )
+
+[node name="RightHandContainer" type="Position2D" parent="."]
+modulate = Color( 0.776471, 0.588235, 0.505882, 1 )
+position = Vector2( 5, 0 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -7 )
+frames = SubResource( 9 )
+animation = "IdleFront"
+playing = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -5 )
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 4
+
+[node name="HealthBar" parent="." instance=ExtResource( 4 )]
+margin_left = -16.0
+margin_top = -18.0
+margin_right = 16.0
+margin_bottom = -14.0

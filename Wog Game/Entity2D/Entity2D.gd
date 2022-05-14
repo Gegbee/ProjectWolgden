@@ -5,6 +5,9 @@ class_name Entity2D
 export var left_hand_path : NodePath
 export var right_hand_path : NodePath
 
+export var health_bar_path : NodePath
+
+var health_bar = null
 var left_hand = null
 var right_hand = null
 
@@ -29,6 +32,7 @@ func _ready():
 	add_to_group('entity')
 	left_hand = get_node(left_hand_path)
 	right_hand = get_node(right_hand_path)
+	health_bar = get_node(health_bar_path)
 	
 func _process(delta):
 	impulse_vector.x = lerp(impulse_vector.x, 0, 0.02)
@@ -115,9 +119,20 @@ func useHand(hand : String):
 		__useRightHand__()
 		
 func damage(dmg : int, impulse_dir : Vector2 = Vector2(), impulse_strength : float = 0):
-	health -= dmg
+	set_health(health - dmg)
 	impulse(impulse_dir, impulse_strength)
 	print(self.name + " health: " + str(health) + " / " + str(MAX_HEALTH))
 
+func set_health(new_health : int):
+	health = new_health
+	if health <= 0:
+		health = 0
+		kys()
+	if health_bar:
+		health_bar.updateHealth(health)
+	
+func kys():
+	queue_free()
+	
 func impulse(dir : Vector2, strength: float):
 	impulse_vector = dir * strength
